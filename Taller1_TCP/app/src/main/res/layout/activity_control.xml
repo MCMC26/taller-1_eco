@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Control"
+    tools:layout_editor_absoluteY="25dp">
+
+    <io.github.controlwear.virtual.joystick.android.JoystickView xmlns:custom="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/jv_analogo_control"
+        android:layout_width="257dp"
+        android:layout_height="264dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        custom:JV_backgroundColor="#9d968b"
+        custom:JV_borderWidth="4dp"
+        custom:JV_buttonColor="#f4eae1"
+        custom:JV_buttonSizeRatio="35%"
+        custom:JV_fixedCenter="false"
+        custom:layout_constraintStart_toStartOf="parent"
+        custom:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <ImageButton
+        android:id="@+id/btn_recargar_control"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="48dp"
+        android:backgroundTint="@color/colorAccent"
+        android:contentDescription="recargar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/recarga" />
+
+    <ImageButton
+        android:id="@+id/btn_disparar_control"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="156dp"
+        android:layout_marginBottom="76dp"
+        android:backgroundTint="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@mipmap/dispara" />
+</android.support.constraint.ConstraintLayout>
