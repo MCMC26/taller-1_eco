@@ -14,12 +14,16 @@ public class MainActivity extends AppCompatActivity  {
     private EditText ip;
     private Button fusion;
     private Comunicacion ref;
+    View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        view =this.getWindow().getDecorView();
+        view.setBackgroundResource(R.color.colorAccent);
+
         nombre = findViewById(R.id.edt_nombre_main);
         ip = findViewById(R.id.edt_ip_main);
         fusion = findViewById(R.id.btn_conectar_main);

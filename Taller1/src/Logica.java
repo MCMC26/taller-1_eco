@@ -160,17 +160,23 @@ public class Logica  implements Observer{
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		String msg=(String) arg1;
-		if( msg.matches("d")){
+		String[] msg=(String[]) arg1;
+		if(msg[0].matches("d")){
 			//disparar();
 			
 		}
 		
 	
-		if( msg.matches("r")){
+		if(msg[0].matches("r")){
 			//recargar();
 			
 		}
+		
+		 if(msg[0].matches("Mover")) {
+		String angulo =msg[0];
+		String fuerza =msg[2];
+		//PVector pos  
+		 }
 		
 		
 	}
