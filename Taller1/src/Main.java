@@ -24,8 +24,14 @@ public class Main extends PApplet {
 	}
 	
 	public void mousePressed() {
-		System.out.println("x:" + mouseX + ",y:"+ mouseY);
 		log.clickear();
+		log.clickear2();
+		log.clickear3();
+		log.clickEnergía();
 		
+	}
+	
+	public void keyPressed() {
+		log.teclear();
 	}
 }

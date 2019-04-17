@@ -17,6 +17,7 @@ public class Control extends AppCompatActivity implements Observer {
     private JoystickView analogo;
     private  ImageButton d;
     private  ImageButton r;
+    private String direccion;
     View view;
 
 
@@ -29,6 +30,7 @@ public class Control extends AppCompatActivity implements Observer {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         view =this.getWindow().getDecorView();
         view.setBackgroundResource(R.color.colorAccent);
+        direccion= getIntent().getStringExtra("ip");
         ref = Comunicacion.getRef();
         ref.addObserver(this);
 

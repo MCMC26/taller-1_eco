@@ -8,80 +8,82 @@ import java.net.UnknownHostException;
 import java.util.Observable;
 
 public class ControlServidor extends Observable implements Runnable {
-
-	// private Socket socket;
-	private DataInputStream entrada;
+	
+	private ServerSocket server;
 	private DataOutputStream salida;
-	private boolean conectado;
+	private DataInputStream entrada;
+	boolean conectado;
+	private String dato;
 	private static InetAddress ip;
-	private static ControlServidor ref;
+    private static ControlServidor ref;
 
-	private ControlServidor() {
+	public ControlServidor() {
 		conectado = false;
 		try {
-			ip = InetAddress.getLocalHost();
+			ip=InetAddress.getLocalHost();
 		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("Esperando Conexión");
 	}
-
-	public static ControlServidor getRef() {
-		if (ref == null) {
-		
-			ref = new ControlServidor();
-			Thread t = new Thread(ref);
-			t.start();
-
-		}
-		return ref;
-	}
-
 	
-			public void run() {
+	  public static ControlServidor getRef() { 
+	        if(ref == null) {
+	            ref = new ControlServidor();
+	            Thread t = new Thread(ref);
+	            t.start();
+	        }
+	        return ref;
+	    }
+	  
+	  public static InetAddress getIp() {
+		return ip; 	
+	    }
+	  
+			@Override
+	public void run() {
 				try {
-					if(!conectado) {
-					ServerSocket server= new ServerSocket(5000);
+					server= new ServerSocket(5000);
 					System.out.println("Esperando cliente");
 					Socket socket = server.accept();
 					System.out.println("Cliente aceptado");
 					entrada = new DataInputStream(socket.getInputStream());
 					salida= new DataOutputStream(socket.getOutputStream());
 					while(true) {
-						recibir();
+						entrada();
 						Thread.sleep(33);
 					}
-					}
+				
 				} catch (IOException e) {
 					e.printStackTrace();
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}		
-				
-			
+				}				
 			}
-	private void recibir() throws IOException {
-		String[] mensaje = entrada.readUTF().split(": :");
-		for (int i=0;i < mensaje.length; i++) {
-			mensaje [i]= mensaje[i].trim();
-		}
-		setChanged();
-		notifyObservers(mensaje);
-		clearChanged();
-	}
-
-	public void enviar(final String id) {
-					try {
-						salida.writeUTF(id);
-						salida.flush();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
-	public InetAddress getIp() {
-		return ip;
-	}
-
-}
 			
+	private void entrada() throws IOException {
+		String[] recibido= entrada.readUTF().split(": :");
+		for(int i = 0; i < recibido.length; i++) {
+			recibido[i] = recibido[i].trim();
+			System.out.println(recibido[i]);
+		}
+		
+		setChanged();
+		notifyObservers(recibido);
+		clearChanged();
+		
+	}
+	
+	public void enviar(String mensaje){
+		
+		try {
+			salida.writeUTF(dato);
+			salida.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	
+	}
+		
+}

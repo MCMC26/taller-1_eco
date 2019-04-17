@@ -22,14 +22,11 @@ public class Comunicacion extends Observable implements Runnable {
         System.out.print("Esperando Conexión");
     }
 
-    public static Comunicacion getRef() {
 
-        return ref;
-    }
 
-    public static Comunicacion getRef(String dir) {
+    public static Comunicacion getRef(/*String dir*/) {
         if(ref == null) {
-            ip = dir;
+           // ip = dir;
             ref = new Comunicacion();
             Thread t = new Thread(ref);
             t.start();
@@ -43,7 +40,7 @@ public class Comunicacion extends Observable implements Runnable {
             try {
                 if(!conectado) {
 
-                    socket = new Socket(InetAddress.getByName(ip), 5000);
+                    socket = new Socket(InetAddress.getByName("192.168.43.206"), 5000);
                     entrada = new DataInputStream(socket.getInputStream());
                     salida = new DataOutputStream(socket.getOutputStream());
                     conectado = true;
