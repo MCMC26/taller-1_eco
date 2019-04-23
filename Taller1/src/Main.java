@@ -17,21 +17,15 @@ public class Main extends PApplet {
 		log = new Logica(this);
 	}
 	
+
 	public void draw() {
 		
 		background(0);
 		log.dibujar();
 	}
 	
-	public void mousePressed() {
-		log.clickear();
-		log.clickear2();
-		log.clickear3();
-		log.clickEnergía();
-		
-	}
-	
+
 	public void keyPressed() {
-		log.teclear();
+		log.printear();
 	}
 }

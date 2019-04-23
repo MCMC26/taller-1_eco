@@ -12,7 +12,7 @@ public class Interfaz extends Thread {
 	private int y;
 	private PVector pos;
 	private Logica log;
-	private PImage mira, carga0, carga1, carga2, carga3, personaje, explosion;
+	private PImage mira, carga0, carga1, carga2, carga3, personaje, boom, explosion;
 	private int energia = 4;
 	private int puntaje =0;
 	
@@ -31,9 +31,13 @@ public class Interfaz extends Thread {
 		carga2 = app.loadImage("Carga2.png");
 		carga3 = app.loadImage("Carga3.png");
 		explosion = app.loadImage("Explosion.png");
+		boom =app.loadImage("boom.png");
 		
-		x=app.mouseX-55;
-		y=app.mouseY-55;
+		
+	//	PVector pos = new PVector(log.getpos);
+		
+		
+		
 		fallo1 =false;
 		fallo2 =false;
 		fallo3 =false;
@@ -44,23 +48,23 @@ public class Interfaz extends Thread {
 	}
 	
 	
-	public void pintar() {
+	public void pintar(PVector puntero) {
 		if(acierto1 ==true) {
-			destellar();
+			destellar(puntero);
 			if(app.frameCount % 10==0) {
 				acierto1 =false;
 			}
 		}
 		
 		if(acierto2 ==true) {
-			destellar();
+			destellar(puntero);
 			if(app.frameCount % 10==0) {
 				acierto2 =false;
 			}
 		}
 		
 		if(acierto3 ==true) {
-			destellar();
+			destellar(puntero);
 			if(app.frameCount % 10==0) {
 				acierto3 =false;
 			}
@@ -68,21 +72,21 @@ public class Interfaz extends Thread {
 		
 		
 		if(fallo1 ==true) {
-			miss();
+			miss(puntero);
 			if(app.frameCount % 10==0) {
 				fallo1 =false;
 			}
 		}
 		
 		if(fallo2 ==true) {
-			miss();
+			miss(puntero);
 			if(app.frameCount % 10==0) {
 				fallo2 =false;
 			}
 		}
 		
 		if(fallo3 ==true) {
-			miss();
+			miss(puntero);
 			if(app.frameCount % 10==0) {
 				fallo3 =false;
 			}
@@ -118,7 +122,7 @@ public class Interfaz extends Thread {
 		app.text("PUNTAJE: "+puntaje, 375, 625);
 		
 		app.image(personaje, 530,600);
-		app.image(mira,app.mouseX-55 ,app.mouseY-55);
+		app.image(mira,puntero.x-55 ,puntero.y-55);
 		
 		
 	}
@@ -177,29 +181,29 @@ public class Interfaz extends Thread {
 	}
 	
 	public void recargar() {
-		if(app.keyCode=='r' || app.keyCode=='R') {
+	
 			energia =3;
 			recargando=true;
-		}
+		
 	}
 
-	public void destellar() {
-		app.image(explosion, app.mouseX-70,app.mouseY-70);
+	public void destellar(PVector puntero) {
+		app.image(explosion, puntero.x-70,puntero.y-70);
 	}
 	
-	public void miss() {
+	public void miss(PVector puntero) {
 		app.textSize(28);
 		//app.fill(255,0,0);
-		app.text("MISS", app.mouseX +100,app.mouseY);
+		app.text("MISS", puntero.x +100,puntero.y);
 		//app.noFill();
 	}
 	
-	public void validarDisparo(ArrayList <Enemigo> ene) {
+	public void validarDisparo(ArrayList <Enemigo> ene, PVector puntero) {
 		ArrayList<Enemigo> enemigos = ene;
 		
 		for(int i = enemigos.size()-1; i>=0; i--) {
 			Enemigo e = enemigos.get(i);
-			if(PApplet.dist(app.mouseX-55, app.mouseY-55,e.getPos().x,e.getPos().y)<50  && energia >0) {
+			if(PApplet.dist(puntero.x-55, puntero.y-55,e.getPos().x,e.getPos().y)<50  && energia >0) {
 				 enemigos.remove(i);
 				 acierto1=true;
 				 
@@ -211,14 +215,14 @@ public class Interfaz extends Thread {
 		}
 	}
 	
-	public void validarDisparo2(ArrayList <Enemigo2> ene2) {
+	public void validarDisparo2(ArrayList <Enemigo2> ene2, PVector puntero) {
 		ArrayList<Enemigo2> enemigos2 = ene2;
 		
 		for(int i = enemigos2.size()-1; i>=0; i--) {
 			Enemigo2 e2 = enemigos2.get(i);
-			if(PApplet.dist(app.mouseX-55, app.mouseY-55,e2.getPos().x,e2.getPos().y)<50 && energia>0) {
+			if(PApplet.dist(puntero.x-55, puntero.y-55,e2.getPos().x,e2.getPos().y)<50 && energia>0) {
 				 enemigos2.remove(i);
-				 acierto3 = true;
+				 acierto2 = true;
 			}else {
 				fallo2= true;
 			}
@@ -226,12 +230,12 @@ public class Interfaz extends Thread {
 		}
 	}
 	
-	public void validarDisparo3(ArrayList <Enemigo3> ene3) {
+	public void validarDisparo3(ArrayList <Enemigo3> ene3, PVector puntero) {
 		ArrayList<Enemigo3> enemigos3 = ene3;
 		
 		for(int i = enemigos3.size()-1; i>=0; i--) {
 			Enemigo3 e3 = enemigos3.get(i);
-			if(PApplet.dist(app.mouseX-55, app.mouseY-55,e3.getPos().x,e3.getPos().y)<50 && energia >0) {
+			if(PApplet.dist(puntero.x-55, puntero.y-55,e3.getPos().x,e3.getPos().y)<50 && energia >0) {
 				 enemigos3.remove(i);
 				 acierto3 = true;
 			}else {
